@@ -30,9 +30,7 @@ public:
 		this->name = name;
 	}
 
-	string getName() {
-		return this->name;
-	}
+	string getName() { return this->name; }
 
 	~Name() {
 
@@ -56,14 +54,9 @@ public:
 		this->price = price;
 	}
 
-	int getPrice() {
-		return this->price;
-	}
+	int getPrice() { return this->price; }
 
-
-	int getProtect() {
-		return this->protect;
-	}
+	int getProtect() { return this->protect; }
 
 	~Shield() {
 
@@ -88,13 +81,9 @@ public:
 		this->price = price;
 	}
 
-	int getPrice() {
-		return this->price;
-	}
+	int getPrice() { return this->price; }
 
-	int getDamage() {
-		return this->damage;
-	}
+	int getDamage() { return this->damage; }
 
 	~Weapon() {
 
@@ -126,24 +115,17 @@ public:
 		this->level = level;
 	}
 
-	void setName(string name) {
-		this->name = name;
+	void setName(string name) { 
+		this->name = name; 
 	}
 
-	auto getHealth() {
-		return this->health;
-	}
+	auto getHealth() { return this->health; }
 
-	auto getEnergy() {
-		return this->energy;
-	}
-	auto getLevel() {
-		return this->level;
-	}
+	auto getEnergy() { return this->energy; }
 
-	auto getName() {
-		return this->name;
-	}
+	auto getLevel() { return this->level; }
+
+	auto getName() { return this->name; }
 
 
 	~Person() {
@@ -164,6 +146,7 @@ protected:
 	int maxHealth = 0;
 	Shield* panel = NULL;
 	Weapon* armament = NULL;
+
 public:
 	Gamer(int health, int maxHealth, int energy, int power, int agility, int endurance, int level, int xp, int wallet, string name) : Person(health, energy, level, name) {
 		this->power = power;
@@ -240,41 +223,25 @@ public:
 		this->protect = protect + armament->getDamage() + this->endurance % 100;
 	}
 
-	auto getXp() {
-		return this->xp;
-	}
+	auto getXp() { return this->xp; }
 
-	auto getPower() {
-		return this->power;
-	}
-	auto getAgility() {
-		return this->agility;
-	}
+	auto getPower() { return this->power; }
 
-	auto getEndurance() {
-		return this->endurance;
-	}
+	auto getAgility() { return this->agility; }
 
-	auto getMaxHealth() {
-		return this->maxHealth;
-	}
+	auto getEndurance() { return this->endurance; }
 
-	auto getDamage() {
-		return this->damage;
-	}
+	auto getMaxHealth() { return this->maxHealth; }
 
-	auto getProtect() {
-		return this->protect;
-	}
+	auto getDamage() { return this->damage; }
 
-	auto getWallet() {
-		return this->wallet;
-	}
+	auto getProtect() { return this->protect; }
+
+	auto getWallet() { return this->wallet; }
 
 
 
 };
-
 
 class SkillInterface {
 private:
@@ -289,6 +256,82 @@ public:
 	~SkillInterface() {
 
 	}
+};
+
+class Healing : public SkillInterface {
+public:
+protected:
+public:
+	Healing() {
+
+	}
+
+	void useSkill(Gamer* player) override {
+		Gamer* player = player;
+		while (player->getHealth() < player->getMaxHealth()) {
+			player->setHealth(player->getHealth()+betterRandomizer(0, 10));
+		}
+	};
+
+	~Healing() {
+
+	}
+
+};
+
+class CriticalDamage : public SkillInterface {
+public:
+protected:
+public:
+	CriticalDamage() {
+
+	}
+
+	void useSkill(Gamer* player) override {
+
+	};
+
+	~CriticalDamage() {
+
+	}
+
+};
+
+class Damage : public SkillInterface {
+public:
+protected:
+public:
+	Damage() {
+
+	}
+
+	void useSkill(Gamer* player) override {
+
+	};
+
+	~Damage() {
+
+	}
+
+};
+
+class LevelUp : public SkillInterface {
+public:
+protected:
+public:
+	LevelUp() {
+
+	}
+
+	void useSkill(Gamer* player) override {
+		Gamer* player = player;
+		player->setLevel(player->getLevel()+1);
+	};
+
+	~LevelUp() {
+
+	}
+
 };
 
 class PotionInterface {
@@ -308,7 +351,7 @@ public:
 
 class DamagePotion : public PotionInterface {
 private:
-	int size = 0; // 1 -20, 2 - 50, 3-100, 4 - all
+	int size = 0;
 
 public:
 	DamagePotion(int size) {
@@ -349,7 +392,6 @@ public:
 		cout << "I`m drink xp potion. XP = " << player->getXp() << endl;
 	}
 };
-
 
 class Monster : public Person {
 private:
@@ -395,35 +437,23 @@ public:
 		this->xpPlus = xpPlus;
 	}
 
-	auto getHealth() {
-		return this->health;
-	}
-
-	auto getEnergy() {
-		return this->energy;
-	}
-	auto getMonsterLevel() {
-		return this->level;
-	}
-
-	auto getName() {
-		return this->name;
-	}
-
-	auto getDamage() {
-		return this->damage;
-	}
-	auto getProtect() {
-		return this->protect;
-	}
-
-	auto getXpPlus() {
-		return this->xpPlus;
-	}
-
 	void setMonsterMoney(int money) {
 		this->money = money + rand() % getLevel();
 	}
+
+	auto getHealth() { return this->health; }
+
+	auto getEnergy() { return this->energy; }
+
+	auto getMonsterLevel() { return this->level; }
+
+	auto getName() { return this->name; }
+
+	auto getDamage() { return this->damage; }
+
+	auto getProtect() { return this->protect; }
+
+	auto getXpPlus() { return this->xpPlus; }
 
 	~Monster() {
 
@@ -796,7 +826,3 @@ int main() {
 		saveload->savePlayer();
 	}
 }
-
-
-
-
