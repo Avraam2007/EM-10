@@ -275,7 +275,6 @@ public:
 
 };
 
-
 class SkillInterface {
 private:
 protected:
@@ -289,6 +288,78 @@ public:
 	~SkillInterface() {
 
 	}
+};
+
+class Healing : public SkillInterface {
+public:
+protected:
+public:
+	Healing() {
+
+	}
+
+	void useSkill(Gamer* player) override {
+
+	};
+
+	~Healing() {
+
+	}
+
+};
+
+class CriticalDamage : public SkillInterface {
+public:
+protected:
+public:
+	CriticalDamage() {
+
+	}
+
+	void useSkill(Gamer* player) override {
+
+	};
+
+	~CriticalDamage() {
+
+	}
+
+};
+
+class Damage : public SkillInterface {
+public:
+protected:
+public:
+	Damage() {
+
+	}
+
+	void useSkill(Gamer* player) override {
+
+	};
+
+	~Damage() {
+
+	}
+
+};
+
+class LevelUp : public SkillInterface {
+public:
+protected:
+public:
+	LevelUp() {
+
+	}
+
+	void useSkill(Gamer* player) override {
+
+	};
+
+	~LevelUp() {
+
+	}
+
 };
 
 class PotionInterface {
@@ -308,7 +379,7 @@ public:
 
 class DamagePotion : public PotionInterface {
 private:
-	int size = 0; // 1 -20, 2 - 50, 3-100, 4 - all
+	int size = 0;
 
 public:
 	DamagePotion(int size) {
@@ -349,7 +420,6 @@ public:
 		cout << "I`m drink xp potion. XP = " << player->getXp() << endl;
 	}
 };
-
 
 class Monster : public Person {
 private:
@@ -796,6 +866,11 @@ int main() {
 		saveload->savePlayer();
 	}
 }
+
+
+
+
+
 
 
 
