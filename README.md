@@ -1,7 +1,7 @@
 # EM-10
-Read README.md to read changes before!!!!!
-Welcome to my hometask!
-There are changes:
+<h1><b>Read README.md to read changes before!!!!!</b></h1>
+<h2>Welcome to my hometask!</h2>
+<h3>There are changes:<h3>
 <p>
 <p>*Added PotionInterface and SkillInterface</p>
 <p>*Added Healing, LevelUp and CriticalDamage classes</p>
