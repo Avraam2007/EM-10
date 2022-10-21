@@ -2,16 +2,17 @@
 Read README.md to read changes before!!!!!
 Welcome to my hometask!
 There are changes:
-*Added PotionInterface and SkillInterface
-*Added Healing, LevelUp and CriticalDamage classes
-*Added constructors and destructors in some classes
-*Fixed setDamage() logic
-*Fixed bug with srand()
-*Fixed bug with mainPage()
-*Fixed bug with gamer creating. Now variables are really changing with character choose  
-*Interface change: Preview increases for character choose
-*New event! usePotion() had chance of 2%
-*"Level up"`s now alerted
-*The code smaller(from 828 (previous code) to 787)
-*Healing is aviable for each events
-Thanks for attention!
+<p>
+<p>*Added PotionInterface and SkillInterface</p>
+<p>*Added Healing, LevelUp and CriticalDamage classes</p>
+<p>*Added constructors and destructors in some classes</p>
+<p>*Fixed setDamage() logic</p>
+<p>*Fixed bug with srand()</p>
+<p>*Fixed bug with mainPage()</p>
+<p>*Fixed bug with gamer creating. Now variables are really changing with character choose</p>
+<p>*Interface change: Preview increases for character choose</p>
+<p>*New event! usePotion() had chance of 2%</p>
+<p>*"Level up"`s now alerted</p>
+<p>*The code smaller(from 828 (previous code) to 787)</p>
+<p>*Healing is aviable for each events</p>
+<p>Thanks for attention!!!</p>
