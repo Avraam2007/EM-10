@@ -9,12 +9,13 @@
 using namespace std;
 
 int betterRandomizer(int min, int max) {
-	srand(time(NULL));
 	if (min > max) {
 		swap(min, max);
 	};
 	return min + rand() % (max - min + 1);;
 };
+
+
 
 
 class Name {
@@ -32,9 +33,7 @@ public:
 
 	string getName() { return this->name; }
 
-	~Name() {
-
-	}
+	~Name() { }
 };
 
 class Shield : public Name {
@@ -58,9 +57,7 @@ public:
 
 	int getProtect() { return this->protect; }
 
-	~Shield() {
-
-	}
+	~Shield() { }
 };
 
 class Weapon : public Name {
@@ -85,9 +82,7 @@ public:
 
 	int getDamage() { return this->damage; }
 
-	~Weapon() {
-
-	}
+	~Weapon() { }
 };
 
 class Person : public Name {
@@ -119,18 +114,16 @@ public:
 		this->name = name; 
 	}
 
-	auto getHealth() { return this->health; }
+	int getHealth() { return this->health; }
 
-	auto getEnergy() { return this->energy; }
+	int getEnergy() { return this->energy; }
 
-	auto getLevel() { return this->level; }
+	int getLevel() { return this->level; }
 
-	auto getName() { return this->name; }
+	string getName() { return this->name; }
 
 
-	~Person() {
-
-	}
+	~Person() { }
 };
 
 class Gamer : public Person {
@@ -153,30 +146,9 @@ public:
 		this->agility = agility;
 		this->endurance = endurance;
 		this->xp = xp;
-
-		if (xp == 1000) {
-			levelUp();
-		}
-
-		if (health < maxHealth) {
-			healing();
-		}
 	}
 
-	~Gamer() {
-	}
-
-	int healing() {
-		while (health < maxHealth) {
-			health += betterRandomizer(0, 10);
-		}
-		return health;
-	}
-
-	int levelUp() {
-		level++;
-		return level;
-	}
+	~Gamer() { }
 
 	void setWeapon(Weapon* armament) {
 		this->armament = armament;
@@ -209,37 +181,29 @@ public:
 		this->maxHealth = maxHealth;
 	}
 
-
-	int setDamage(int damage) {
-		if (agility % (rand() % 10) == 0) {
-			this->damage = damage + armament->getDamage() + this->power % 100 + (agility % 10);
-		}
-		else {
-			this->damage = damage + armament->getDamage() + this->power % 100;
-		}
+	void setDamage(int damage) {
+		this->damage = armament->getDamage() + damage;
 	}
 
 	void setProtect(int protect) {
 		this->protect = protect + armament->getDamage() + this->endurance % 100;
 	}
 
-	auto getXp() { return this->xp; }
+	int getXp() { return this->xp; }
 
-	auto getPower() { return this->power; }
+	int getPower() { return this->power; }
 
-	auto getAgility() { return this->agility; }
+	int getAgility() { return this->agility; }
 
-	auto getEndurance() { return this->endurance; }
+	int getEndurance() { return this->endurance; }
 
-	auto getMaxHealth() { return this->maxHealth; }
+	int getMaxHealth() { return this->maxHealth; }
 
-	auto getDamage() { return this->damage; }
+	int getDamage() { return this->damage; }
 
-	auto getProtect() { return this->protect; }
+	int getProtect() { return this->protect; }
 
-	auto getWallet() { return this->wallet; }
-
-
+	int getWallet() { return this->wallet; }
 
 };
 
@@ -247,150 +211,105 @@ class SkillInterface {
 private:
 protected:
 public:
-	SkillInterface() {
-
-	}
+	SkillInterface() { }
 
 	virtual void useSkill(Gamer* player) = 0;
 
-	~SkillInterface() {
-
-	}
+	~SkillInterface() { }
 };
 
 class Healing : public SkillInterface {
 public:
 protected:
 public:
-	Healing() {
-
-	}
+	Healing() { }
 
 	void useSkill(Gamer* player) override {
-		Gamer* player = player;
 		while (player->getHealth() < player->getMaxHealth()) {
 			player->setHealth(player->getHealth()+betterRandomizer(0, 10));
 		}
 	};
 
-	~Healing() {
-
-	}
-
+	~Healing() { }
 };
 
 class CriticalDamage : public SkillInterface {
 public:
 protected:
 public:
-	CriticalDamage() {
-
-	}
+	CriticalDamage() { }
 
 	void useSkill(Gamer* player) override {
-
+		Weapon* armament = NULL;
+		player->setDamage(player->getDamage() + armament->getDamage() + player->getPower() % 100 + (player->getAgility() % 10));
 	};
 
-	~CriticalDamage() {
-
-	}
-
-};
-
-class Damage : public SkillInterface {
-public:
-protected:
-public:
-	Damage() {
-
-	}
-
-	void useSkill(Gamer* player) override {
-
-	};
-
-	~Damage() {
-
-	}
-
+	~CriticalDamage() { }
 };
 
 class LevelUp : public SkillInterface {
 public:
 protected:
 public:
-	LevelUp() {
-
-	}
+	LevelUp() { }
 
 	void useSkill(Gamer* player) override {
-		Gamer* player = player;
 		player->setLevel(player->getLevel()+1);
 	};
 
-	~LevelUp() {
-
-	}
-
+	~LevelUp() { }
 };
 
 class PotionInterface {
 private:
 protected:
 public:
-	PotionInterface() {
-
-	}
+	PotionInterface() { }
 
 	virtual void usePotion(Gamer* player) = 0;
 
-	~PotionInterface() {
-
-	}
+	~PotionInterface() { }
 };
 
 class DamagePotion : public PotionInterface {
 private:
-	int size = 0;
-
+protected:
 public:
-	DamagePotion(int size) {
-		this->size = size;
-	}
+	DamagePotion() { }
 
 	void usePotion(Gamer* player) override {
-		if (size != 4) {
-			int healthValue = 20;
-			if (this->size == 2) {
-				healthValue = 50;
-			}
-			else if (this->size == 3) {
-				healthValue = 100;
-			}
-
-			player->setDamage(player->getDamage() + healthValue);
-		}
-		else {
-			player->setDamage(player->getDamage());
-		}
+		player->setDamage(player->getDamage() + 50);
 		cout << "I`m drink damage potion. Damage = " << player->getDamage() << endl;
 	}
+	~DamagePotion() { }
 };
 
 class EnergyPotion : public PotionInterface {
+private:
+protected:
 public:
+	EnergyPotion() { }
+
 	void usePotion(Gamer* player) override {
 		player->setEnergy(player->getEnergy() + 20);
 		cout << "I`m drink energy potion. Energy = " << player->getEnergy() << endl;
 	}
+
+	~EnergyPotion() { }
 };
 
 class XpPotion : public PotionInterface {
+private:
+protected:
 public:
+	XpPotion() { }
+
 	void usePotion(Gamer* player) override {
 		player->setXp(player->getXp() + 100);
 		cout << "I`m drink xp potion. XP = " << player->getXp() << endl;
 	}
+
+	~XpPotion() { }
 };
 
 class Monster : public Person {
@@ -441,23 +360,21 @@ public:
 		this->money = money + rand() % getLevel();
 	}
 
-	auto getHealth() { return this->health; }
+	int getHealth() { return this->health; }
 
-	auto getEnergy() { return this->energy; }
+	int getEnergy() { return this->energy; }
 
-	auto getMonsterLevel() { return this->level; }
+	int getMonsterLevel() { return this->level; }
 
-	auto getName() { return this->name; }
+	string getName() { return this->name; }
 
-	auto getDamage() { return this->damage; }
+	int getDamage() { return this->damage; }
 
-	auto getProtect() { return this->protect; }
+	int getProtect() { return this->protect; }
 
-	auto getXpPlus() { return this->xpPlus; }
+	int getXpPlus() { return this->xpPlus; }
 
-	~Monster() {
-
-	}
+	~Monster() { }
 };
 
 class SaveLoad {
@@ -492,9 +409,7 @@ public:
 		return player;
 	}
 
-	~SaveLoad() {
-
-	}
+	~SaveLoad() { }
 };
 
 class Engine {
@@ -502,9 +417,7 @@ private:
 	string list[10] = { "Сyclop", "Minotaur", "Phobos", "Toxic student", "Orc", "Elf", "Wizzard", "Illager", "Skeleton", "Necrophos" };
 	SaveLoad* role = NULL;
 public:
-	Engine() {
-
-	}
+	Engine() { }
 
 	auto typeName(string text) {
 		cout << text;
@@ -528,15 +441,15 @@ public:
 
 		if (choose == "barbar") {
 			//player = new Barbar(1000, 500, 100, 20, 300, 1, 200, typeName("Enter your name: "));
-			player = new Gamer(1000, 1000, 500, 100, 20, 300, 1, 200, 100, name);
+			player = new Gamer(1000, 1000, 500, 150, 20, 300, 1, 200, 100, name);
 		}
 		else if (choose == "tank") {
 			//player = new Tank(1100, 500, 100, 20, 300, 1, 200, typeName("Enter your name: "));
-			player = new Gamer(1100, 1100, 500, 100, 20, 300, 1, 200, 100, name);
+			player = new Gamer(1100, 1100, 500, 100, 20, 350, 1, 200, 100, name);
 		}
 		else if (choose == "murder") {
 			//player = new Murder(900, 500, 100, 20, 300, 1, 200, typeName("Enter your name: "));
-			player = new Gamer(900, 900, 500, 100, 20, 300, 1, 200, 100, name);
+			player = new Gamer(900, 900, 500, 100, 70, 300, 1, 200, 100, name);
 		}
 
 		return player;
@@ -558,9 +471,7 @@ public:
 		return new Shield(armors[choose2 - 1], prices[choose2 - 1], names[choose2 - 1]);
 	}
 
-	~Engine() {
-
-	}
+	~Engine() { }
 };
 
 class Event {
@@ -693,7 +604,7 @@ public:
 			this->player->setShield(shopShield(player->getWallet(), typeNameInt("Choose item: \n1-package ATB-30$ \n2-wood-50$ \n3-stone-70$ \n4-steel-90$ \n5-IRIS-110$ \n6-graphene-150$ \n7-magic shield-200$(SALE -0,0000001%!!!)")));
 		}
 		else if (choose == 3) {
-			return 1;
+			cout << "OK"
 		}
 		else {
 			cerr << "\aError: Wrong value! Try again!";
@@ -725,7 +636,6 @@ public:
 		if (player->getHealth() > 0) {
 			cout << "You win!";
 			player->setXp(player->getXp() + enemy->getXpPlus());
-			player->healing();
 		}
 		else {
 			cout << "You lose!";
@@ -768,9 +678,44 @@ public:
 		}
 	}
 
-	~Event() {
+	void setSkillInterface(int choose, Gamer* player) {
+		SkillInterface* sinter = NULL;
 
+		if (choose < 1 || choose > 3) {
+			cerr << "\a Wrong value of function setSkillInterface()! Try again!";
+		}
+		else if (choose == 1) {
+			sinter = new Healing();
+		}
+		else if (choose == 2) {
+			sinter = new CriticalDamage();
+		}
+		else {
+			sinter = new LevelUp();
+		}
+		sinter->useSkill(player);
 	}
+
+
+	auto setPotionInterface(int choose, Gamer* player) {
+		PotionInterface* pi = NULL;
+
+		if (choose < 1 || choose > 3) {
+			cerr << "\a Wrong value of function setSkillInterface()! Try again!";
+		}
+		else if (choose == 1) {
+			pi = new EnergyPotion();
+		}
+		else if (choose == 2) {
+			pi = new DamagePotion();
+		}
+		else {
+			pi = new XpPotion();
+		}
+		pi->usePotion(player);
+	}
+
+	~Event() { }
 };
 
 
@@ -792,7 +737,7 @@ int main() {
 		gamer = saveload->loadPlayer();
 	}
 	else {
-		gamer = obj->createGamer(obj->typeName("Enter your name: "), obj->typeName("Enter your new character(barbar, tank, murder): "));
+		gamer = obj->createGamer(obj->typeName("Enter your name: "), obj->typeName("Enter your new character(barbar(+100 health, +50 power), tank(+200 health, +50 endurance), murder(+0 health, +50 agility) ): "));
 	}
 	Event* event = new Event(gamer);
 
@@ -806,23 +751,38 @@ int main() {
 			cout << endl;
 			system("pause");
 		}
-		else if (chance > 5 && chance <= 40) {
+		else if (chance > 5 && chance <= 30) {
 			event->increaseCharacter(betterRandomizer(1, 8));
 			cout << endl;
 			system("pause");
 		}
-		else if (chance > 40 && chance <= 80) {
+		else if (chance > 30 && chance <= 70) {
 			event->meetMonster();
 			cout << endl;
 			system("pause");
 		}
-		else {
-			return 1;
+		else if (chance > 70 && chance <= 72) {
+			event->setPotionInterface(betterRandomizer(1, 3), gamer);
 		}
-		gamer->healing();
+		else {
+			return NULL;
+		}
+
+		event->setSkillInterface(1, gamer);
+	}
+
+	if (gamer->getXp() == 1000) {
+		event->setSkillInterface(3, gamer);
+		cout << "\aLevel UP!!!\n";
+	}
+
+	if (betterRandomizer(0, 100) == 0) {
+		event->setSkillInterface(2, gamer);
 	}
 
 	if (_getch() == 'q') {
 		saveload->savePlayer();
 	}
+
 }
+
