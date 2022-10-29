@@ -880,6 +880,23 @@ public:
 		else {
 			cout << "OK!";
 		}
+		int skillChoose = typeNameInt("Do you want to use skill(1-level up,2-critical damage,3-healing,4-no)");
+		if (choose < 1 || choose > 4) {
+			cerr << "\aError: Wrong value! Try again!";
+			return 0;
+		}
+		else if (choose == 1) {
+			player->useSkill(1);
+		}
+		else if (choose == 2) {
+			player->useSkill(2);
+		}
+		else if (choose == 3) {
+			player->useSkill(3);
+		}
+		else {
+			cout << "OK!";
+		}
 		Engine* action = new Engine();
 		this->enemy = action->createMonster(this->player->getLevel());
 
