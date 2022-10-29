@@ -1,3 +1,4 @@
+
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -38,49 +39,55 @@ public:
 	~Name() { }
 };
 
-class Shield : public Name {
+class Price : public Name {
+private:
+	int price = 0;
+protected:
+public:
+	Price(string name, int price) : Name(name) {
+		this->price = price;
+	}
+
+	void setPrice(int price) {
+		this->price = price;
+	}
+
+	int getPrice() { return this->price; }
+
+	~Price() {
+
+	}
+};
+
+class Shield : public Price {
 private:
 protected:
 	int protect = 0;
-	int price = 0;
 public:
-	Shield(int protect, int price, string name) : Name(name) {
+	Shield(int protect, int price, string name) : Price(name,price) {
 		this->setName(name);
 	}
 	void setProtect(int protect) {
 		this->protect = protect;
 	}
 
-	void setPrice(int price) {
-		this->price = price;
-	}
-
-	int getPrice() { return this->price; }
-
 	int getProtect() { return this->protect; }
 
 	~Shield() { }
 };
 
-class Weapon : public Name {
+class Weapon : public Price {
 private:
 protected:
 	int damage = 0;
-	int price = 0;
 public:
-	Weapon(int damage, int price, string name) : Name(name) {
+	Weapon(int damage, int price, string name) : Price(name, price) {
 		this->setName(name);
 	}
 
 	void setDamage(int damage) {
 		this->damage = damage;
 	}
-
-	void setPrice(int price) {
-		this->price = price;
-	}
-
-	int getPrice() { return this->price; }
 
 	int getDamage() { return this->damage; }
 
@@ -192,11 +199,11 @@ public:
 	~LevelUp() { }
 };
 
-class PotionInterface : public Name{
+class PotionInterface : public Price{
 private:
 protected:
 public:
-	PotionInterface(string name) : Name(name) { }
+	PotionInterface(string name, int price) : Price(name, price) { }
 
 	virtual void usePotion(Gamer* player) = 0;
 
@@ -205,20 +212,14 @@ public:
 
 class DamagePotion : public PotionInterface {
 private:
-	int price = 0;
 	int plusDamage = 0;
 protected:
 public:
-	DamagePotion(int price, int plusDamage, string name) : PotionInterface(name) {
-		this->price = price;
+	DamagePotion(int price, int plusDamage, string name) : PotionInterface(name, price) {
 		this->plusDamage = plusDamage;
 	}
 
-	void setPrice(int price) {
-		this->price = price;
-	}
-
-	void setDamage(int plusDamage) {
+	void setPlusDamage(int plusDamage) {
 		this->plusDamage = plusDamage;
 	}
 
@@ -226,10 +227,6 @@ public:
 		return this->plusDamage;
 	}
 
-
-	int getPrice() {
-		return this->price;
-	}
 
 	void usePotion(Gamer* player) override {
 		player->setDamage(player->getDamage() + 50);
@@ -240,17 +237,11 @@ public:
 
 class EnergyPotion : public PotionInterface {
 private:
-	int price = 0;
 	int plusEnergy = 0;
 protected:
 public:
-	EnergyPotion(int price, int plusEnergy, string name) : PotionInterface(name) {
-		this->price = price;
+	EnergyPotion(int price, int plusEnergy, string name) : PotionInterface(name, price) {
 		this->plusEnergy = plusEnergy;
-	}
-
-	void setPrice(int price) {
-		this->price = price;
 	}
 
 	void setplusEnergy(int plusEnergy) {
@@ -260,12 +251,6 @@ public:
 	int getPlusEnergy() {
 		return this->plusEnergy;
 	}
-
-
-	int getPrice() {
-		return this->price;
-	}
-
 
 	void usePotion(Gamer* player) override {
 		player->setEnergy(player->getEnergy() + getPlusEnergy());
@@ -277,17 +262,11 @@ public:
 
 class XpPotion : public PotionInterface {
 private:
-	int price = 0;
 	int plusXp = 0;
 protected:
 public:
-	XpPotion(int price, int plusXp, string name) : PotionInterface(name) {
-		this->price = price;
+	XpPotion(int price, int plusXp, string name) : PotionInterface(name, price) {
 		this->plusXp = plusXp;
-	}
-
-	void setPrice(int price) {
-		this->price = price;
 	}
 
 	void setPlusXp(int plusDamage) {
@@ -296,11 +275,6 @@ public:
 
 	int getPlusXp() {
 		return this->plusXp;
-	}
-
-
-	int getPrice() {
-		return this->price;
 	}
 
 	void usePotion(Gamer* player) override {
